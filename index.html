@@ -1,0 +1,83 @@
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#6a4cff">
+<title>StudyVerse – عالم الدراسة</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"}}</script>
+<style>
+:root{--ink:#2a1f4d;--pink:#ff4f9a;--vio:#6a4cff;--teal:#00c9a7;--sun:#ffc933;--r:16px}
+*{box-sizing:border-box;margin:0}html,body{height:100%;overflow:hidden;font-family:Cairo,system-ui,sans-serif;color:var(--ink);background:#bfe8ff}
+button,input,select,textarea{font:inherit;color:inherit}[hidden]{display:none!important}
+button{cursor:pointer;border:0;border-radius:12px;padding:8px 14px;background:#fff;font-weight:700;box-shadow:0 2px 0 #0002}
+button:active{transform:translateY(1px)}button:focus-visible,input:focus-visible{outline:3px solid var(--sun)}
+.screen{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:24px;overflow:auto;background:linear-gradient(160deg,var(--vio),var(--pink) 62%,var(--sun));color:#fff;text-align:center}
+.hero h1{font-size:clamp(48px,12vw,110px);font-weight:900;line-height:1;direction:ltr;letter-spacing:-2px}
+.hero h1 small{display:block;font-size:.34em;letter-spacing:0;direction:rtl;margin-top:6px}
+.hero p{max-width:34ch;font-size:19px;line-height:1.7}.cta{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.big{padding:14px 28px;font-size:19px}.pink{background:var(--sun);color:var(--ink)}
+#strip{display:flex;margin-top:10px}#strip img{width:76px;margin-inline-start:-18px;filter:drop-shadow(0 6px 6px #0003)}
+form,.panelbox{background:#fff;color:var(--ink);border-radius:24px;padding:24px;width:min(380px,100%);display:flex;flex-direction:column;gap:12px;text-align:start}
+input,select,textarea{border:2px solid #d9d2ff;border-radius:12px;padding:10px 12px;background:#fff;width:100%}
+.err{color:#d6204f;min-height:1.4em;font-size:14px}.ok{background:var(--vio);color:#fff}
+#choose{justify-content:flex-start}#cgrid,#pav{background:#fff;color:var(--ink);border-radius:24px;padding:14px;width:min(760px,100%);text-align:start}
+.gr{display:grid;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:8px;margin:6px 0 12px}
+.ch{padding:2px;background:#f4f0ff;border:3px solid transparent}.ch.on{border-color:var(--pink);background:#ffe3f0}.ch img{width:100%;display:block}
+#cv{position:fixed;inset:0;width:100%;height:100%;touch-action:none}
+#tags{position:fixed;inset:0;pointer-events:none;overflow:hidden}
+.tag{position:absolute;left:0;top:0;background:#fffe;border-radius:99px;padding:1px 10px;font-size:13px;font-weight:700;white-space:nowrap;border:3px solid transparent}.tag.speak{border-color:#2ecc71}
+#top{position:fixed;top:0;inset-inline:0;display:flex;gap:8px;align-items:center;padding:calc(8px + env(safe-area-inset-top)) 12px 8px;pointer-events:none}
+#top>*{pointer-events:auto}#top .sp{flex:1}.pill{background:#fffd;border-radius:99px;padding:6px 14px;font-weight:700;font-size:14px}
+.micbtn{background:var(--vio);color:#fff}
+#chat{position:fixed;right:10px;bottom:calc(10px + env(safe-area-inset-bottom));width:min(340px,calc(100% - 20px));height:min(40vh,380px);display:flex;flex-direction:column;background:#fffe;border-radius:20px;padding:8px;backdrop-filter:blur(8px)}
+#tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px}#tabs button{white-space:nowrap;padding:4px 12px;background:#ece7ff}#tabs .on{background:var(--pink);color:#fff}
+#log{flex:1;overflow:auto;display:flex;flex-direction:column;gap:8px}
+.msg{display:flex;gap:6px;align-items:flex-start}.msg .av{width:34px;border-radius:50%;background:#f1ecff}
+.bub{background:#f4f0ff;border-radius:14px;padding:6px 10px;font-size:14px;max-width:calc(100% - 44px);overflow-wrap:anywhere}.mine .bub{background:#ffe3f0}
+.bub blockquote{border-inline-start:3px solid var(--vio);padding-inline-start:6px;opacity:.7;font-size:12px}.bub small{display:block;opacity:.55;font-size:11px}
+.bub a{color:var(--vio)}.pic{max-width:100%;max-height:150px;border-radius:10px;display:block;margin:4px 0}.bub button{padding:2px 10px;margin:2px 0}
+#reply{font-size:12px;background:#ece7ff;border-radius:8px;padding:2px 8px;margin-top:4px}
+.irow{display:flex;gap:6px;margin-top:6px}.irow input{flex:1;min-width:0}.irow button{padding:6px 10px}
+#drawer{position:fixed;left:10px;top:calc(56px + env(safe-area-inset-top));width:min(350px,calc(100% - 20px));max-height:calc(100% - 80px - env(safe-area-inset-top));overflow:auto;background:#fff;border-radius:20px;padding:12px;box-shadow:0 10px 40px #0004;display:flex;flex-direction:column;gap:8px}
+.row{display:flex;gap:8px;align-items:center;padding:6px 0;border-bottom:1px solid #eee}.row img{width:40px}.row div{flex:1}.card{background:#f7f4ff;border-radius:14px;padding:10px;display:flex;flex-direction:column;gap:6px;margin-top:8px}
+#joy{position:fixed;left:24px;bottom:calc(30px + env(safe-area-inset-bottom));width:110px;height:110px;border-radius:50%;background:#fff6;border:3px solid #fffa;touch-action:none;display:none}
+#knob{position:absolute;left:35px;top:35px;width:40px;height:40px;border-radius:50%;background:var(--pink)}
+#sitBtn{position:fixed;left:24px;bottom:calc(160px + env(safe-area-inset-bottom));background:var(--sun)}
+@media(pointer:coarse){#joy{display:block}#chat{height:34vh}}
+#pdf{position:fixed;inset:0;background:#000b;display:flex;flex-direction:column;padding:12px;gap:8px}#pdf iframe{flex:1;border:0;background:#fff;border-radius:12px}
+#toast{position:fixed;top:70px;left:50%;transform:translate(-50%,-20px);background:var(--ink);color:#fff;padding:10px 18px;border-radius:99px;opacity:0;transition:.25s;pointer-events:none;z-index:9}#toast.on{opacity:1;transform:translate(-50%,0)}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style></head><body>
+<main id="landing" class="screen hero">
+ <h1>StudyVerse<small>عالم الدراسة</small></h1>
+ <p>مقهى ثلاثي الأبعاد تذاكر فيه مع أصحابك، وتسمع من حولك، وتفتح غرفة خاصة بصوتها وملفاتها.</p>
+ <div class="cta"><button class="big pink" data-go="signup">ابدأ الآن</button><button class="big" data-go="login">لدي حساب</button></div>
+ <div id="strip"></div>
+</main>
+<main id="login" class="screen" hidden><form id="fLogin"><h2>تسجيل الدخول</h2>
+ <input id="ln" placeholder="اسم المستخدم" autocomplete="username" required><input id="lp" type="password" placeholder="كلمة المرور" autocomplete="current-password" required>
+ <div class="err" id="le"></div><button class="ok big">ادخل</button><button type="button" data-go="signup">ليس لدي حساب</button><button type="button" data-go="landing">رجوع</button></form></main>
+<main id="signup" class="screen" hidden><form id="fSign"><h2>إنشاء حساب</h2>
+ <input id="sn" placeholder="اسم المستخدم (3–20 حرفًا)" autocomplete="username" required><input id="sp" type="password" placeholder="كلمة المرور (6 أحرف فأكثر)" autocomplete="new-password" required>
+ <div class="err" id="se"></div><button class="ok big">التالي: اختيار الشخصية</button><button type="button" data-go="login">لدي حساب</button><button type="button" data-go="landing">رجوع</button></form></main>
+<main id="choose" class="screen" hidden><h2>اختر شخصيتك</h2><div id="cgrid"></div><div class="err" id="ce"></div><button class="big pink" id="go">ادخل المقهى</button></main>
+<div id="world" hidden>
+ <canvas id="cv"></canvas><div id="tags"></div>
+ <div id="top"><span class="pill" id="chanLbl">الصوت: عام</span><span class="sp"></span>
+  <button class="micbtn" id="mic">🔇 المايك مغلق</button><button data-p="friends">👥</button><button data-p="rooms">🔒</button><button data-p="profile">🙂</button><button data-p="audio">🎧</button><button data-p="settings">⚙️</button></div>
+ <section id="drawer" hidden>
+  <div data-pn="friends"><input id="fs" placeholder="ابحث عن شخص بالاسم"><div id="fres"></div><h3>أصدقائي</h3><div id="flist"></div></div>
+  <div data-pn="rooms"><h3>غرفة خاصة جديدة</h3><div class="irow"><input id="rn" placeholder="اسم الغرفة" maxlength="30"><button class="ok" id="rmk">إنشاء</button></div><div id="rlist"></div></div>
+  <div data-pn="profile"><b id="pname"></b><div id="pav"></div><textarea id="bio" rows="2" maxlength="140" placeholder="نبذة عنك"></textarea><button class="ok" id="psave">حفظ</button></div>
+  <div data-pn="audio"><button class="micbtn micbtn2">🔇 المايك مغلق</button><label>مستوى الصوت <input id="vol" type="range" min="0" max="1.5" step=".05" value="1"></label>
+   <label><input id="spat" type="checkbox" checked style="width:auto"> صوت مكاني: يخف كلما ابتعدت الشخصيات</label><label>المايكروفون <select id="dev"><option>اضغط تشغيل المايك أولًا</option></select></label></div>
+  <div data-pn="settings"><label>جودة الرسوم <select id="qual"><option value="1">خفيفة (أسرع)</option><option value="2">عالية</option></select></label>
+   <label><input id="names" type="checkbox" checked style="width:auto"> إظهار الأسماء فوق الشخصيات</label><button id="out">تسجيل الخروج</button></div>
+ </section>
+ <section id="chat"><div id="tabs"></div><div id="log"></div><div id="reply" hidden></div>
+  <div class="irow"><button id="vbtn" hidden></button></div>
+  <div class="irow"><input id="txt" placeholder="اكتب رسالة أو الصق رابطًا (Instagram…)" maxlength="500" autocomplete="off">
+   <button id="f1" title="ملف">📎</button><button id="f2" title="صورة أو كاميرا">📷</button><button class="ok" id="snd">➤</button></div>
+  <input type="file" id="fi" hidden><input type="file" id="fm" accept="image/*" hidden></section>
+ <div id="joy"><div id="knob"></div></div><button id="sitBtn" hidden>🪑 اجلس</button>
+ <div id="pdf" hidden><button id="pdfx">إغلاق ✖</button><iframe title="PDF"></iframe></div>
+</div><div id="toast"></div>
+<script type="module" src="app.js"></script></body></html>
